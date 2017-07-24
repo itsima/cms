@@ -1,0 +1,163 @@
+<form method="post" class="form-x dux-form form-auto" id="form" action="{U()}">
+    <div class="tab dux-tab">
+        <div class="panel dux-box  active">
+            <div class="panel-head">
+                <div class="tab-head">
+                    <strong>{$name}设备</strong>
+                    <ul class="tab-nav">
+                        <li class="active"><a href="#tab-1">基本信息</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-body">
+                <div class="tab-panel active" id="tab-1">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>设备名称</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="title" name="title" size="60" datatype="*" value="{$info.title}">
+                            
+                            <div class="input-note">设备标题请不要填写特殊字符</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>项目编号</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="num" name="num" size="60" datatype="*" value="{$info.num}">
+
+                            <div class="input-note">项目编号请不要填写特殊字符</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="label">
+                        <label>设备型号</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input" id="xinghao" name="xinghao" size="60" datatype="*" value="{$info.xinghao}">
+
+                        <div class="input-note">设备型号请不要填写特殊字符</div>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>设备序列号</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="xuliehao" name="xuliehao" size="60" datatype="*" value="{$info.xuliehao}">
+
+                            <div class="input-note">设备序列号请不要填写特殊字符</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>到期时间</label>
+                        </div>
+                        <div class="field">
+                            <input class="input" id="endtime" name="endtime" size="60" type="text" value="<?php echo (date("Y-m-d H:i",$info['endtime'])); ?>" endtime="{$info.endtime}">
+                        <div class="input-note"></div>
+                        </div>
+                    </div>
+                    <div id="expand"></div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>报修类型</label>
+                    </div>
+                    <div class="field">
+                        <input class="input" id="staue" name="staue" size="60" type="text" value="{$info.staue}">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <div class="label">
+                        <label>客户来源</label>
+                    </div>
+                    <div class="field">
+                        <input class="input" id="staue" name="staue" size="60" type="text"
+                        <!--if{$info['type'] == 1}-->
+                        value="自家设备"
+                        <!--{else}-->
+                        value="直接报修"
+                        <!--{/if}-->
+                        >
+                    </div>
+                  </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>图片</label>
+                        </div>
+                        <div class="field">
+                            <!--if{$info['image'] !== NULL}-->
+                            <img src="{$info.image}" alt="">
+                            <!--{else}-->
+                            客户没有上传图片
+                            <!--{/if}-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>视频</label>
+                        </div>
+                        <div class="field">
+                            <!--if{$info['video'] !== NULL}-->
+                            <video width="300px" height="300px" controls="controls">
+                                <source src="{$info['video']}" type="video/mp4">
+                            </video>
+                            <!--{else}-->
+                            客户没有上传视频
+                            <!--{/if}-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>音频</label>
+                        </div>
+                        <div class="field">
+                            <!--if{$info['sound'] !== NULL}-->
+                            <a href="{$info.sound}">下载</a>
+                            <!--{else}-->
+                            客户没有上传音频
+                            <!--{/if}-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>客户电话</label>
+                        </div>
+                        <div class="field">
+                            <a href="{U('Article/AdminUserInfo/edit',array('id'=>$user['id']))}" style="line-height: 34px;">{$user.tel}</a>
+
+                            <div class="input-note">客户电话，点击可查看具体客户信息</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-foot">
+                <div class="form-button">
+                    <div id="tips"></div>
+                    <input type="hidden" name="id" id="content_id" type="hidden" value="{$info.id}">
+                    <input type="hidden" name="only" id="only" value="<?php echo mt_rand(); ?>">
+                    <input type="hidden" name="time" id="time" type="hidden" value="<?php echo date("Y-m-d H:i:s"); ?>">
+                    <button class="button bg-main" type="submit">保存</button>
+                    <button class="button bg" type="reset">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+	//var content_editor = 'xxxx';
+    Do.ready('base', function () {
+        //表单综合处理
+        //$('#form').duxFormPage();
+		//动态获取扩展字段
+		$('#class_id').change(function() {
+			$('#expand').load('{U("DuxCms/AdminExpand/getField")}',{class_id:$(this).val(),content_id:$('#content_id').val()},function(){
+				$('#expand').duxFormPage({form:false});
+			});
+		});
+		$('#class_id').change();
+    }); 
+</script>

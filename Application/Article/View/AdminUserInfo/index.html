@@ -1,0 +1,77 @@
+<div class="panel dux-box">
+    <div class="table-tools clearfix ">
+        <div class="float-left">
+            <form method="post" action="{U()}">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="field">
+                            <input type="text" class="input" id="keyword" name="keyword" size="20" value="{$pageMaps.keyword}" placeholder="关键词">
+                        </div>
+                    </div>
+                    <div class="form-button">
+                        <button class="button" type="submit">搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="table" class="table table-hover ">
+            <tbody>
+            <tr>
+                <th width="60">选择</th>
+                <th width="100">编号</th>
+                <th width="*">姓名</th>
+                <th width="*">电话</th>
+                <th width="*">邮箱</th>
+                <th width="160">微信</th>
+                <th width="100">操作</th>
+            </tr>
+            <!--loop{$list as $vo}-->
+            <tr>
+                <td>
+                    <input type="checkbox" name="id[]" value="{$vo.id}" />
+                </td>
+                <td>{$vo.id}</td>
+                <td><a target="_blank">{$vo.name}</a></td>
+                <td><a  target="_blank">{$vo.tel}</a></td>
+                <td><a target="_blank">{$vo.email}</a></td>
+                <td> {$vo.weixin}</td>
+
+                <td>
+                    <a class="button bg-blue button-small icon-pencil" href="{U('edit',array('id'=>$vo['id']))}" title="修改"></a>
+                    <a class="button bg-red button-small icon-trash-o js-del" href="javascript:;" data="{$vo.id}" title="删除"></a>
+                </td>
+            </tr>
+            <!--{/loop}-->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-foot table-foot clearfix">
+        <div class="float-right">
+            {$page}
+        </div>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    Do.ready('base',function() {
+        //移动操作
+        $('#selectAction').change(function() {
+            var type = $(this).val();
+            if(type == 3){
+                $(this).after($('#class_id').clone());
+            }else{
+                $(this).nextAll('select').remove();
+            }
+        });
+        //表格处理
+        $('#table').duxTable({
+            actionUrl : "{U('batchAction')}",
+            deleteUrl: "{U('del')}",
+            actionParameter : function(){
+                return {'class_id' : $('#selectAction').next('#class_id').val()};
+            }
+        });
+    });
+</script>

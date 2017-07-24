@@ -1,0 +1,109 @@
+<form method="post" class="form-x dux-form form-auto" id="form" action="{U()}">
+    <div class="tab dux-tab">
+        <div class="panel dux-box  active">
+            <div class="panel-head">
+                <div class="tab-head">
+                    <strong>{$name}设备</strong>
+                    <ul class="tab-nav">
+                        <li class="active"><a href="#tab-1">基本信息</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-body">
+                <div class="tab-panel active" id="tab-1">
+                    <div class="form-group">
+                        <div class="label">
+                            <label>客户姓名</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="title" name="title" size="60" datatype="*" value="{$info.name}">
+                            
+                            <div class="input-note"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>电话</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="num" name="num" size="60" datatype="*" value="{$info.tel}">
+
+                            <div class="input-note"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>Email</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" class="input" id="xuliehao" name="xuliehao" size="60" datatype="*" value="{$info.email}">
+
+                            <div class="input-note"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>微信</label>
+                        </div>
+                        <div class="field">
+                            <input class="input" id="endtime" name="endtime" size="60" type="text" value="{$info.weixin}">
+                        <div class="input-note"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>客户类型</label>
+                        </div>
+                        <div class="field">
+                           <!--if{$info['aid'] == 0}-->
+                             直接报修
+                             <!--{else}-->
+                             {$shebei.title}
+                             <!--{/if}-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="label">
+                            <label>客户报修问题</label>
+                        </div>
+                        <div class="field">
+                            <a href="{U('Article/AdminUser/edit',array('id'=>$info['fid']))}" style="line-height: 34px;">报修问题</a>
+                        <div class="input-note">点击可查看报修问题</div>
+                        </div>
+                    </div>
+                    <div id="expand"></div>
+
+
+
+
+
+                </div>
+            </div>
+            <div class="panel-foot">
+                <div class="form-button">
+                    <div id="tips"></div>
+                    <input type="hidden" name="content_id" id="content_id" type="hidden" value="{$info.content_id}">
+                    <input type="hidden" name="only" id="only" value="<?php echo mt_rand(); ?>">
+                    <input type="hidden" name="time" id="time" type="hidden" value="<?php echo date("Y-m-d H:i:s"); ?>">
+                    <button class="button bg-main" type="submit">保存</button>
+                    <button class="button bg" type="reset">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+	//var content_editor = 'xxxx';
+    Do.ready('base', function () {
+        //表单综合处理
+        //$('#form').duxFormPage();
+		//动态获取扩展字段
+		$('#class_id').change(function() {
+			$('#expand').load('{U("DuxCms/AdminExpand/getField")}',{class_id:$(this).val(),content_id:$('#content_id').val()},function(){
+				$('#expand').duxFormPage({form:false});
+			});
+		});
+		$('#class_id').change();
+    }); 
+</script>
